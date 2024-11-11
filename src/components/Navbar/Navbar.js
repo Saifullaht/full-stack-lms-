@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState, useRef } from 'react';
 import { Button } from '../ui/button';
 import { useSession, signOut } from 'next-auth/react';  // Importing useSession and signOut from next-auth
+import Image from 'next/image'; // Import Image component for optimization
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -88,39 +89,42 @@ const Navbar = () => {
           {/* Logo and Navigation */}
           <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <img
-                className="h-8 w-auto"
-                src="https://www.saylaniwelfare.com/static/media/logo_saylaniwelfare.22bf709605809177256c.png"
-                alt="Saylani LMS"
-              />
+              <Link href="/">
+                {/* Using Image component for optimization */}
+                <Image
+                  className="h-8 w-auto"
+                  src="https://www.saylaniwelfare.com/static/media/logo_saylaniwelfare.22bf709605809177256c.png"
+                  alt="Saylani LMS"
+                  width={150}
+                  height={50}
+                />
+              </Link>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                <a
-                  href="/"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-black hover:text-white"
-                  aria-current="page"
-                >
-                  Dashboard
-                </a>
-                <a
-                  href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-black hover:text-white"
-                >
-                  Team
-                </a>
-                <a
-                  href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-black hover:text-white"
-                >
-                  Projects
-                </a>
-                <a
-                  href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-black hover:text-white"
-                >
-                  Calendar
-                </a>
+                <Link href="/" passHref>
+                  <a
+                    className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-black hover:text-white"
+                    aria-current="page"
+                  >
+                    Dashboard
+                  </a>
+                </Link>
+                <Link href="#" passHref>
+                  <a className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-black hover:text-white">
+                    Team
+                  </a>
+                </Link>
+                <Link href="#" passHref>
+                  <a className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-black hover:text-white">
+                    Projects
+                  </a>
+                </Link>
+                <Link href="#" passHref>
+                  <a className="rounded-md px-3 py-2 text-sm font-medium text-black hover:bg-black hover:text-white">
+                    Calendar
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -129,23 +133,19 @@ const Navbar = () => {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* Show SignIn button if session is null */}
             {!session ? (
-              <Link href="/signin">
+              <Link href="/signin" passHref>
                 <Button>Sign In</Button>
               </Link>
             ) : (
               <div className="flex items-center gap-3">
                 {/* Show user profile and email */}
                 <span className="font-mono text-1xl">{session.user.email}</span>
-                
-                
               </div>
-              
             )}
 
             {/* User menu button */}
             {session && (
               <div className="relative ml-3" ref={userMenuRef}>
-                 
                 <button
                   type="button"
                   className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -154,12 +154,13 @@ const Navbar = () => {
                   aria-haspopup="true"
                   onClick={toggleUserMenu}
                 >
-                  <span className="absolute -inset-1.5"></span>
                   <span className="sr-only">Open user menu</span>
-                  <img
+                  <Image
                     className="h-8 w-8 rounded-full border-2 border-blue-500"
                     src={session.user.image || "https://www.placecage.com/200/200"}
                     alt="User avatar"
+                    width={32}
+                    height={32}
                   />
                 </button>
 
@@ -208,34 +209,38 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <div className="sm:hidden transition-all duration-500" id="mobile-menu">
           <div className="space-y-1 px-2 pb-3 pt-2">
-            <a
-              href="#"
-              className="block rounded-md bg-blue-500 px-3 py-2 text-base font-medium text-white text-center"
-              onClick={closeMobileMenu}
-            >
-              Dashboard
-            </a>
-            <a
-              href="#"
-              className="block rounded-md bg-green-500 px-3 py-2 text-base font-medium text-white text-center"
-              onClick={closeMobileMenu}
-            >
-              Team
-            </a>
-            <a
-              href="#"
-              className="block rounded-md bg-red-500 px-3 py-2 text-base font-medium text-white text-center"
-              onClick={closeMobileMenu}
-            >
-              Projects
-            </a>
-            <a
-              href="#"
-              className="block rounded-md bg-purple-500 px-3 py-2 text-base font-medium text-white text-center"
-              onClick={closeMobileMenu}
-            >
-              Calendar
-            </a>
+            <Link href="/" passHref>
+              <a
+                className="block rounded-md bg-blue-500 px-3 py-2 text-base font-medium text-white text-center"
+                onClick={closeMobileMenu}
+              >
+                Dashboard
+              </a>
+            </Link>
+            <Link href="#" passHref>
+              <a
+                className="block rounded-md bg-green-500 px-3 py-2 text-base font-medium text-white text-center"
+                onClick={closeMobileMenu}
+              >
+                Team
+              </a>
+            </Link>
+            <Link href="#" passHref>
+              <a
+                className="block rounded-md bg-red-500 px-3 py-2 text-base font-medium text-white text-center"
+                onClick={closeMobileMenu}
+              >
+                Projects
+              </a>
+            </Link>
+            <Link href="#" passHref>
+              <a
+                className="block rounded-md bg-purple-500 px-3 py-2 text-base font-medium text-white text-center"
+                onClick={closeMobileMenu}
+              >
+                Calendar
+              </a>
+            </Link>
           </div>
         </div>
       )}
