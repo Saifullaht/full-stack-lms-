@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -168,6 +168,7 @@ export function BatchesTable() {
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
+  const [hasAnimated, setHasAnimated] = useState(false); // State to track animation
 
   const table = useReactTable({
     data,
@@ -188,8 +189,12 @@ export function BatchesTable() {
     },
   });
 
+  useEffect(() => {
+    setHasAnimated(true); // Set animation to true on mount
+  }, []);
+
   return (
-    <div className="w-full">
+    <div className={`w-full ${hasAnimated ? "slide-in" : ""}`}> {/* Apply slide-in class here */}
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter by Batch Name..."

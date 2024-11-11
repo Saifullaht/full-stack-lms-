@@ -210,6 +210,7 @@ export function CourseTable() {
   })
 
   return (
+    <div className="w-full slide-in"> {/* Apply slide-in class here */}
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
@@ -321,6 +322,7 @@ export function CourseTable() {
           </Button>
         </div>
       </div>
+    </div>
     </div>
   )
 }

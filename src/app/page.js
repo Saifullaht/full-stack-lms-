@@ -1,9 +1,17 @@
-import Image from "next/image";
+import { SessionProvider } from "next-auth/react"; // Import SessionProvider
+import Navbar from "@/components/Navbar/Navbar"; // Import Navbar component
+import "./globals.css"; // Import any global styles (if any)
 
-export default function Home() {
+export default function RootLayout({ children }) {
   return (
-    <div className="text-4xl grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-       <h1> lms </h1>
-    </div>
+    <html lang="en">
+      <head />
+      <body>
+        <SessionProvider>
+          <Navbar /> {/* Include Navbar here */}
+          {children} {/* Render the children components here */}
+        </SessionProvider>
+      </body>
+    </html>
   );
 }
